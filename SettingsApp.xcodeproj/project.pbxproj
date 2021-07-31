@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CC4F8A7F26B5D26F00576E04 /* SwitchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC4F8A7E26B5D26F00576E04 /* SwitchTableViewCell.swift */; };
 		CC71387826ADE03300DA65E5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC71387726ADE03300DA65E5 /* AppDelegate.swift */; };
 		CC71387A26ADE03300DA65E5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC71387926ADE03300DA65E5 /* SceneDelegate.swift */; };
 		CC71387C26ADE03300DA65E5 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CC71387B26ADE03300DA65E5 /* ViewController.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CC4F8A7E26B5D26F00576E04 /* SwitchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwitchTableViewCell.swift; sourceTree = "<group>"; };
 		CC71387426ADE03300DA65E5 /* SettingsApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SettingsApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CC71387726ADE03300DA65E5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CC71387926ADE03300DA65E5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -66,6 +68,7 @@
 				CC71388226ADE03300DA65E5 /* LaunchScreen.storyboard */,
 				CC71388526ADE03300DA65E5 /* Info.plist */,
 				CC71388B26ADE44300DA65E5 /* SettingTableViewCell.swift */,
+				CC4F8A7E26B5D26F00576E04 /* SwitchTableViewCell.swift */,
 			);
 			path = SettingsApp;
 			sourceTree = "<group>";
@@ -142,6 +145,7 @@
 			files = (
 				CC71387C26ADE03300DA65E5 /* ViewController.swift in Sources */,
 				CC71387826ADE03300DA65E5 /* AppDelegate.swift in Sources */,
+				CC4F8A7F26B5D26F00576E04 /* SwitchTableViewCell.swift in Sources */,
 				CC71388C26ADE44300DA65E5 /* SettingTableViewCell.swift in Sources */,
 				CC71387A26ADE03300DA65E5 /* SceneDelegate.swift in Sources */,
 			);
