@@ -9,7 +9,20 @@ import UIKit
 
 struct Section {
     let title: String
-    let options: [SettingsOption]
+    let options: [SettingsOptionType]
+}
+
+enum SettingsOptionType {
+    case staticCell(model: SettingsOption)
+    case switchCell(model: SettingsSwitchOption)
+}
+
+struct SettingsSwitchOption {
+    let title: String
+    let icon: UIImage?
+    let iconBackgroundColour: UIColor
+    let handler: (() -> Void)
+    let isOn: Bool
 }
 
 struct SettingsOption {
@@ -40,11 +53,11 @@ class ViewController: UIViewController {
     }
     
     private func configure() {
-        let generalOptions: [SettingsOption] = [
-            SettingsOption(title: "Wifi", icon: UIImage(systemName: "house"), iconBackgroundColour: .systemPink, handler: { print("Tapped") }),
-            SettingsOption(title: "Bluetooth", icon: UIImage(systemName: "bluetooth"), iconBackgroundColour: .systemBlue, handler: {}),
-            SettingsOption(title: "Airplane mode", icon: UIImage(systemName: "airplane"), iconBackgroundColour: .systemGreen, handler: {}),
-            SettingsOption(title: "iCloud", icon: UIImage(systemName: "cloud"), iconBackgroundColour: .systemYellow, handler: {})
+        let generalOptions: [SettingsOptionType] = [
+            .staticCell(model: SettingsOption(title: "Wifi", icon: UIImage(systemName: "house"), iconBackgroundColour: .systemPink, handler: { print("Tapped") })),
+            .staticCell(model: SettingsOption(title: "Bluetooth", icon: UIImage(systemName: "bluetooth"), iconBackgroundColour: .systemBlue, handler: {})),
+            .staticCell(model: SettingsOption(title: "Airplane mode", icon: UIImage(systemName: "airplane"), iconBackgroundColour: .systemGreen, handler: {})),
+            .staticCell(model: SettingsOption(title: "iCloud", icon: UIImage(systemName: "cloud"), iconBackgroundColour: .systemYellow, handler: {}))
         ]
         models.append(
             Section(title: "General", options: generalOptions)
@@ -78,16 +91,26 @@ extension ViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let model = models[indexPath.section].options[indexPath.row]
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell else {
+        switch model {
+        case .staticCell(let model):
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell else {
+                return UITableViewCell()
+            }
+            cell.configure(with: model)
+            return cell
+        case .switchCell(_):
             return UITableViewCell()
         }
-        cell.configure(with: model)
-        return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         let model = models[indexPath.section].options[indexPath.row]
-        model.handler()
+        switch model {
+        case .staticCell(let model):
+            model.handler()
+        case .switchCell(let model):
+            model.handler()
+        }
     }
 }
