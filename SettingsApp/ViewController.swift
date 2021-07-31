@@ -7,6 +7,11 @@
 
 import UIKit
 
+struct Section {
+    let title: String
+    let options: [SettingsOption]
+}
+
 struct SettingsOption {
     let title: String
     let icon: UIImage?
@@ -22,7 +27,7 @@ class ViewController: UIViewController {
         return table
     }()
     
-    var models = [SettingsOption]()
+    var models = [Section]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,10 +40,21 @@ class ViewController: UIViewController {
     }
     
     private func configure() {
-        self.models = Array(0...100).compactMap({ i in
-            SettingsOption(title: "Item \(i)", icon: UIImage(systemName: "house"), iconBackgroundColour: .systemPink) {
-            }
-        })
+        let generalOptions: [SettingsOption] = [
+            SettingsOption(title: "Wifi", icon: UIImage(systemName: "house"), iconBackgroundColour: .systemPink, handler: { print("Tapped") }),
+            SettingsOption(title: "Bluetooth", icon: UIImage(systemName: "bluetooth"), iconBackgroundColour: .systemBlue, handler: {}),
+            SettingsOption(title: "Airplane mode", icon: UIImage(systemName: "airplane"), iconBackgroundColour: .systemGreen, handler: {}),
+            SettingsOption(title: "iCloud", icon: UIImage(systemName: "cloud"), iconBackgroundColour: .systemYellow, handler: {})
+        ]
+        models.append(
+            Section(title: "General", options: generalOptions)
+        )
+        models.append(
+            Section(title: "Information", options: generalOptions)
+        )
+        models.append(
+            Section(title: "Apps", options: generalOptions)
+        )
     }
 }
 
@@ -47,16 +63,31 @@ extension ViewController: UITableViewDelegate {
 }
 
 extension ViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return models.count
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        let model = models[section]
+        return model.title
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return models[section].options.count
+    }
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let model = models[indexPath.row]
+        let model = models[indexPath.section].options[indexPath.row]
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SettingTableViewCell", for: indexPath) as? SettingTableViewCell else {
             return UITableViewCell()
         }
         cell.configure(with: model)
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        let model = models[indexPath.section].options[indexPath.row]
+        model.handler()
     }
 }
