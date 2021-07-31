@@ -45,8 +45,6 @@ class SwitchTableViewCell: UITableViewCell {
         contentView.addSubview(mySwitch)
         
         contentView.clipsToBounds = true
-        
-        accessoryType = .disclosureIndicator
     }
     
     required init?(coder: NSCoder) {
