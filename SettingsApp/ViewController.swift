@@ -36,7 +36,7 @@ class ViewController: UIViewController {
     
     private func configure() {
         self.models = Array(0...100).compactMap({ i in
-            SettingsOption(title: "Item \(i)", icon: UIImage(named: "house"), iconBackgroundColour: .systemPink) {
+            SettingsOption(title: "Item \(i)", icon: UIImage(systemName: "house"), iconBackgroundColour: .systemPink) {
             }
         })
     }
